@@ -1,20 +1,20 @@
-# ESO helm
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: external-secrets-operator
   namespace: argocd
 spec:
-  project: infrastructure
+  project: default
   source:
-    repoURL: https://charts.external-secrets.io
     chart: external-secrets
+    repoURL: https://charts.external-secrets.io
     targetRevision: 1.2.1
     helm:
-      values: |
-        installCRDs: true
+      parameters:
+        - name: installCRDs
+          value: "true" # CRD를 함께 설치하도록 설정
   destination:
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
     namespace: external-secrets
   syncPolicy:
     automated:
