@@ -11,12 +11,12 @@ spec:
     - name: web-gateway
       namespace: gateway
       sectionName: http-www
-#    - name: web-gateway
-#      namespace: gateway
-#      sectionName: https
-#    - name: web-gateway
-#      namespace: gateway
-#      sectionName: https-www
+    - name: web-gateway
+      namespace: gateway
+      sectionName: https
+    - name: web-gateway
+      namespace: gateway
+      sectionName: https-www
   hostnames:
     - sonhs.com
     - www.sonhs.com
