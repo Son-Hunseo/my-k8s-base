@@ -11,7 +11,7 @@ metadata:
 spec:
   gatewayClassName: nginx
   listeners:
-    - name: http
+    - name: http-blog
       protocol: HTTP
       port: 80
       hostname: blog.sonhs.com
@@ -20,7 +20,7 @@ spec:
           from: All
 
     # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
-    - name: https
+    - name: https-blog
       protocol: HTTPS
       port: 443
       hostname: blog.sonhs.com
@@ -32,3 +32,47 @@ spec:
         certificateRefs:
           - kind: Secret
             name: blog-sonhs-com-tls
+
+    - name: http-www
+      protocol: HTTP
+      port: 80
+      hostname: www.sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
+#    - name: https-www
+#      protocol: HTTPS
+#      port: 443
+#      hostname: www.sonhs.com
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: www-sonhs-com-tls
+
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
+#    - name: https
+#      protocol: HTTPS
+#      port: 443
+#      hostname: sonhs.com
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: sonhs-com-tls

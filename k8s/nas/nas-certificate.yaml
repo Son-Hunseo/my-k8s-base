@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www-sonhs-com
+  namespace: gateway # Gateway 네임스페이스
+spec:
+  secretName: www-sonhs-com-tls
+  issuerRef:
+    name: letsencrypt-http
+    kind: ClusterIssuer
+  dnsNames:
+    - www.sonhs.com
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sonhs-com
+  namespace: gateway # Gateway 네임스페이스
+spec:
+  secretName: sonhs-com-tls
+  issuerRef:
+    name: letsencrypt-http
+    kind: ClusterIssuer
+  dnsNames:
+    - sonhs.com
