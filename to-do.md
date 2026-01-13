@@ -39,3 +39,56 @@ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/downloa
 ```
 
 ---
+## MetalLB
+
+```bash
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+	sed -e "s/strictARP: false/strictARP: true/" | \
+	kubectl apply -f - -n kube-system
+```
+
+```bash
+helm repo add metallb https://metallb.github.io/metallb
+helm repo update
+
+helm install metallb metallb/metallb \
+  --namespace metallb \
+  --create-namespace
+```
+
+```bash
+nano ip-pool.yaml
+```
+
+```yaml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ip-pool
+  namespace: metallb
+spec:
+  addresses:
+  - 192.168.1.200-192.168.1.250 # 노드 대역과 겹치지 않게 설정
+```
+
+```bash
+nano advertisement.yaml
+```
+
+```yaml
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2-advertisement
+  namespace: metallb
+spec:
+  ipAddressPools:
+  - ip-pool # 위에서 만든 IPAddressPool 이름
+```
+
+```bash
+kubectl apply -f ip-pool.yaml
+kubectl apply -f advertisement.yaml
+```
+
+---
