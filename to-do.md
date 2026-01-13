@@ -31,6 +31,29 @@ helm install argo-cd argo/argo-cd \
   --create-namespace
 ```
 
+```bash
+kubectl -n argocd get cm argocd-cm -o yaml > argo-config.yaml
+```
+
+```yaml
+resource.exclusions: |
+    ### Network resources created by the Kubernetes control plane and excluded to reduce the number of watched events and UI clutter
+    - apiGroups:
+      - ''
+      - discovery.k8s.io
+      kinds:
+      # - Endpoints
+      - EndpointSlice
+```
+
+- Endpoints 주석처리 (제외 리소스에서 제거)
+
+```bash
+kubectl apply -f argo-config.yaml
+```
+
+- 이후에 `kubectl -n argocd rollout restart ~` 명령어로 argocd-server deploy와 argocd-repo-server를 재시작
+
 ---
 ## Gateway API
 
