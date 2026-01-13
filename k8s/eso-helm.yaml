@@ -22,3 +22,24 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true # 서버 사이드 적용으로 충돌 감소
+      - SkipDryRunOnMissingResource=true # CRD가 없을 때 dry-run 스킵
+    retry:
+      limit: 5 # CRD 생성 후 재시도
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      jqPathExpressions:
+        - '.spec.conversion.webhook.clientConfig.caBundle' # Operator가 관리하는 필드 무시
+    - group: "*"
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[].clientConfig.caBundle'
+    - group: "*"
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[].clientConfig.caBundle'
