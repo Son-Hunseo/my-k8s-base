@@ -98,3 +98,25 @@ spec:
         certificateRefs:
           - kind: Secret
             name: climbear-sonhs-com-tls
+
+    - name: http-chocoletter
+      protocol: HTTP
+      port: 80
+      hostname: chocoletter.sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
+#    - name: https-chocoletter
+#      protocol: HTTPS
+#      port: 443
+#      hostname: chocoletter.sonhs.com
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: chocoletter-sonhs-com-tls
