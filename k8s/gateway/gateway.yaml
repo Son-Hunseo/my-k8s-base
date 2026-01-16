@@ -11,6 +11,7 @@ metadata:
 spec:
   gatewayClassName: nginx
   listeners:
+    # Blog
     - name: http-blog
       protocol: HTTP
       port: 80
@@ -19,7 +20,6 @@ spec:
         namespaces:
           from: All
 
-    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
     - name: https-blog
       protocol: HTTPS
       port: 443
@@ -33,6 +33,7 @@ spec:
           - kind: Secret
             name: blog-sonhs-com-tls
 
+    # Nas
     - name: http-www
       protocol: HTTP
       port: 80
@@ -41,7 +42,6 @@ spec:
         namespaces:
           from: All
 
-    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
     - name: https-www
       protocol: HTTPS
       port: 443
@@ -63,7 +63,6 @@ spec:
         namespaces:
           from: All
 
-    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
     - name: https
       protocol: HTTPS
       port: 443
@@ -77,6 +76,7 @@ spec:
           - kind: Secret
             name: sonhs-com-tls
 
+    # Climbear-server
     - name: http-climbear
       protocol: HTTP
       port: 80
@@ -85,7 +85,6 @@ spec:
         namespaces:
           from: All
 
-    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
     - name: https-climbear
       protocol: HTTPS
       port: 443
@@ -99,6 +98,7 @@ spec:
           - kind: Secret
             name: climbear-sonhs-com-tls
 
+    # Chocoletter Client
     - name: http-chocoletter
       protocol: HTTP
       port: 80
@@ -107,7 +107,6 @@ spec:
         namespaces:
           from: All
 
-    # 처음에는 gateway가 깨지면 안되므로 https 는 주석처리해두고 인증서 발급받은 이후 주석 해제
     - name: https-chocoletter
       protocol: HTTPS
       port: 443
@@ -120,3 +119,25 @@ spec:
         certificateRefs:
           - kind: Secret
             name: chocoletter-sonhs-com-tls
+
+    # Chocoletter Server
+    - name: http-chocoletter-server
+      protocol: HTTP
+      port: 80
+      hostname: chocoletter-server.sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+#    - name: https-chocoletter-server
+#      protocol: HTTPS
+#      port: 443
+#      hostname: chocoletter-server.sonhs.com
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: chocoletter-sonhs-com-tls
