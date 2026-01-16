@@ -1,0 +1,14 @@
+apiVersion: gateway.nginx.org/v1alpha1
+kind: ClientSettingsPolicy
+metadata:
+  name: unlimited-upload
+  namespace: gateway
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: web-gateway
+  body:
+    maxSize: "0"  # 0으로 설정하면 본문 크기 제한이 해제됨 (NGINX client_max_body_size 0과 동일)
+  timeouts:
+    clientBody: "36000s" # 클라이언트 본문 읽기 타임아웃을 10시간
