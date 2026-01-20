@@ -164,6 +164,28 @@ spec:
           - kind: Secret
             name: chocoletter-server-sonhs-com-tls
 
+    # Chocoletter Server-After
+    - name: http-chocoletter-server-after
+      protocol: HTTP
+      port: 80
+      hostname: chocoletter-server-after.sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+#    - name: https-chocoletter-server-after
+#      protocol: HTTPS
+#      port: 443
+#      hostname: chocoletter-server-after.sonhs.com
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: chocoletter-server-after-sonhs-com-tls
+
     # Chocoletter Chat
     - name: http-chocoletter-chat
       protocol: HTTP
