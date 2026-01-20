@@ -173,18 +173,18 @@ spec:
         namespaces:
           from: All
 
-#    - name: https-chocoletter-server-after
-#      protocol: HTTPS
-#      port: 443
-#      hostname: chocoletter-server-after.sonhs.com
-#      allowedRoutes:
-#        namespaces:
-#          from: All
-#      tls:
-#        mode: Terminate
-#        certificateRefs:
-#          - kind: Secret
-#            name: chocoletter-server-after-sonhs-com-tls
+    - name: https-chocoletter-server-after
+      protocol: HTTPS
+      port: 443
+      hostname: chocoletter-server-after.sonhs.com
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: chocoletter-server-after-sonhs-com-tls
 
     # Chocoletter Chat
     - name: http-chocoletter-chat
